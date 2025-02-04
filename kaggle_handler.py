@@ -14,13 +14,12 @@ def handler(data_set:str, Add_more=False):
     # Download latest version Dataset
     if (os.listdir(path="Assets") == []) | Add_more:
         path = kagglehub.dataset_download(data_set)
-        # print(f"Data set downloaded at {path}")
+        print(f"Data set downloaded at {path}")
         files = os.listdir(path=path)
         for file in files:
             os.rename(f"{path}/{file}",f"Assets/{file}")
             print(file, "Moved to Assets folder")
         del path, files
-        shutil.rmtree("/home/sptrop/.cache/kagglehub/datasets", ignore_errors=True)
     else:
         print(f'Datasets already exist in Assets folder\n{os.listdir(path="Assets")}\n Change Add_more parameter to download more datasets')
     del data_set

@@ -2,7 +2,7 @@ import os
 import kagglehub
 import shutil
 
-def handler(data_set:str, Add_more=False):
+def handler(data_set:str=None, Add_more=False):
     try:
         os.mkdir("Assets")
         print(f"Directory 'Assets' created successfully.")

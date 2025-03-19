@@ -2,12 +2,20 @@ import os
 import kagglehub
 import shutil
 
-def handler(data_set:str=None, Add_more=False):
+def handler(data_set:str=None, Add_more=False, Folder_Name=None):
     try:
         os.mkdir("Assets")
         print(f"Directory 'Assets' created successfully.")
     except FileExistsError:
         print(f"Directory 'Assets' already exists.")
+    except PermissionError:
+        print(f"Permission denied: Unable to create 'Assets'.")
+
+    try:
+        os.mkdir(f"Assets/{Folder_Name}")
+        print(f"Directory '{Folder_Name}' created successfully.")
+    except FileExistsError:
+        print(f"Directory '{Folder_Name}' already exists.")
     except PermissionError:
         print(f"Permission denied: Unable to create 'Assets'.")
 
@@ -17,8 +25,12 @@ def handler(data_set:str=None, Add_more=False):
         # print(f"Data set downloaded at {path}")
         files = os.listdir(path=path)
         for file in files:
-            os.rename(f"{path}/{file}",f"Assets/{file}")
-            print(file, "Moved to Assets folder")
+            if Folder_Name != None:
+                os.rename(f"{path}/{file}",f"Assets/{Folder_Name}/{file}")
+                print(file, f"Moved to Assets/{Folder_Name} folder")
+            else:
+                os.rename(f"{path}/{file}",f"Assets/{file}")
+                print(file, "Moved to Assets folder")
         del path, files
         shutil.rmtree("/home/sptrop/.cache/kagglehub/datasets", ignore_errors=True)
     else:

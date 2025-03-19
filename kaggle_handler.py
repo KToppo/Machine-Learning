@@ -32,7 +32,7 @@ def handler(data_set:str=None, Add_more=False, Folder_Name=None):
                 os.rename(f"{path}/{file}",f"Assets/{file}")
                 print(file, "Moved to Assets folder")
         del path, files
-        shutil.rmtree("/home/sptrop/.cache/kagglehub/datasets", ignore_errors=True)
+        
     else:
         print(f'Datasets already exist in Assets folder\n{os.listdir(path="Assets")}\n Change Add_more parameter to download more datasets')
     del data_set
